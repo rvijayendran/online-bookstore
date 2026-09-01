@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<configuration>
+    
+    <!-- Include Spring Boot's default logging configuration -->
+    <include resource="org/springframework/boot/logging/logback/defaults.xml"/>
+    <include resource="org/springframework/boot/logging/logback/console-appender.xml"/>
+    
+    <!-- Define custom properties (variables) -->
+    <property name="LOG_PATTERN" value="%d{yyyy-MM-dd HH:mm:ss.SSS} [%thread] %-5level %logger{36} - %msg%n"/>
+    <property name="LOG_FILE" value="logs/bookstore.log"/>
+    
+    <!-- CONSOLE APPENDER - For development -->
+    <appender name="CONSOLE" class="ch.qos.logback.core.ConsoleAppender">
+        <encoder>
+            <pattern>${LOG_PATTERN}</pattern>
+        </encoder>
+    </appender>
+    
+    <!-- FILE APPENDER - For production -->
+    <appender name="FILE" class="ch.qos.logback.core.rolling.RollingFileAppender">
+        <file>${LOG_FILE}</file>
+        <encoder>
+            <pattern>${LOG_PATTERN}</pattern>
+        </encoder>
+        <rollingPolicy class="ch.qos.logback.core.rolling.SizeAndTimeBasedRollingPolicy">
+            <!-- Create new file when size exceeds 10MB or daily -->
+            <fileNamePattern>logs/bookstore-%d{yyyy-MM-dd}.%i.log</fileNamePattern>
+            <maxFileSize>10MB</maxFileSize>
+            <maxHistory>30</maxHistory>
+            <totalSizeCap>1GB</totalSizeCap>
+        </rollingPolicy>
+    </appender>
+    
+    <!-- DEVELOPMENT PROFILE -->
+    <springProfile name="dev">
+        <!-- Root logger - what ALL loggers inherit from -->
+        <root level="INFO">
+            <appender-ref ref="CONSOLE"/>
+        </root>
+        
+        <!-- Your application's package - detailed logging for debugging -->
+        <logger name="com.example.bookstore" level="DEBUG"/>
+        
+        <!-- Spring Framework - see what Spring is doing -->
+        <logger name="org.springframework" level="INFO"/>
+        
+        <!-- Hibernate - see SQL queries -->
+        <logger name="org.hibernate" level="WARN"/>
+        <logger name="org.hibernate.SQL" level="DEBUG"/>
+        <logger name="org.hibernate.type.descriptor.sql.BasicBinder" level="TRACE"/>
+        
+        <!-- Security - see authentication/authorization -->
+        <logger name="org.springframework.security" level="DEBUG"/>
+        
+        <!-- Database connection pool -->
+        <logger name="com.zaxxer.hikari" level="DEBUG"/>
+    </springProfile>
+    
+    <!-- PRODUCTION PROFILE -->
+    <springProfile name="prod">
+        <!-- Root logger - only show INFO and above -->
+        <root level="INFO">
+            <appender-ref ref="FILE"/>
+            <appender-ref ref="CONSOLE"/>
+        </root>
+        
+        <!-- Your application - only important events -->
+        <logger name="com.example.bookstore" level="INFO"/>
+        
+        <!-- Spring Framework - only warnings and errors -->
+        <logger name="org.springframework" level="WARN"/>
+        
+        <!-- Hibernate - no SQL, only warnings -->
+        <logger name="org.hibernate" level="WARN"/>
+        
+        <!-- Security - only important security events -->
+        <logger name="org.springframework.security" level="INFO"/>
+        
+        <!-- Database connection pool - only problems -->
+        <logger name="com.zaxxer.hikari" level="WARN"/>
+    </springProfile>
+    
+</configuration>
