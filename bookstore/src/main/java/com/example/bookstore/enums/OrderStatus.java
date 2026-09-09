@@ -1,0 +1,12 @@
+package com.example.bookstore.enums;
+
+
+public enum OrderStatus {
+
+    PENDING,
+    CONFIRMED,
+    SHIPPED,
+    DELIVERED,
+    CANCELLED
+    
+}

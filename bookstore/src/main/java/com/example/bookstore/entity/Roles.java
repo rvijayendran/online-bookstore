@@ -1,10 +1,14 @@
 package com.example.bookstore.entity;
 
+import java.util.HashSet;
+import java.util.Set;
+
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.ManyToMany;
 import jakarta.persistence.Table;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -21,7 +25,22 @@ public class Roles {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
 
-    @Column(nullable = false)
+    @Column(nullable = false,unique = true , length = 50)
     private String name ;
+
+
+    @ManyToMany(mappedBy = "roles")
+    private Set<User> users = new HashSet<>();
+
+
+    public void addUser(User user){
+        users.add(user);
+        user.getRoles().add(this);
+    }
+
+    public void removeUser(User user){
+        users.remove(user);
+        user.getRoles().remove(this);
+    }
     
 }
