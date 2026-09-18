@@ -1,4 +1,4 @@
-package com.example.bookstore.enums;
+package com.example.bookstore.entity;
 
 
 public enum OrderStatus {

@@ -28,7 +28,7 @@ import lombok.Setter;
 @Setter 
 @Table(name = "books" ,
             indexes = {
-                @Index(name = "idx_books_title", columnList = "litle"),
+                @Index(name = "idx_books_title", columnList = "title"),
                 @Index(name="idx_books_author",columnList = "author")
             }
 )
@@ -57,8 +57,8 @@ public class Book {
     private int stockQuantity ;
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "category_id")
-    private Category categories;
+    @JoinColumn(name = "category_id", nullable = false)
+    private Category category;
 
 
     @Column(updatable = false, nullable = false, name = "created_at")
