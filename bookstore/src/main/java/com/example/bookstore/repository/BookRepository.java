@@ -12,8 +12,10 @@ import org.springframework.data.jpa.repository.JpaSpecificationExecutor;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
+import com.example.bookstore.projection.BookSummary;
 
 import com.example.bookstore.entity.Book;
+import com.example.bookstore.projection.BookSummary;
 
 
 @Repository
@@ -37,4 +39,10 @@ public interface BookRepository extends JpaRepository<Book, Long>, JpaSpecificat
      */
     @Query("SELECT b FROM Book b WHERE b.price < :maxPrice ORDER BY b.price ASC")
     List<Book> findCheaperThan(@Param("maxPrice") java.math.BigDecimal maxPrice);
+
+    @Query("SELECT b.id AS id, b.title AS title, b.author AS author, b.price AS price " +
+       "FROM Book b WHERE b.category.id = :categoryId")
+Page<BookSummary> findSummariesByCategory(@Param("categoryId") Long categoryId,
+                                          Pageable pageable);
 }
+
