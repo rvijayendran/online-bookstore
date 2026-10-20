@@ -28,6 +28,8 @@ public interface BookRepository extends JpaRepository<Book, Long>, JpaSpecificat
 
       boolean existsByIsbn(String isbn);
 
+      List<Book> findByStockQuantityLessThan(int threshold);
+
       @Query("SELECT b FROM Book b WHERE b.stockQuantity > :minStock")
     Page<Book> findInStock(@Param("minStock") int minStock, Pageable pageable);
 
