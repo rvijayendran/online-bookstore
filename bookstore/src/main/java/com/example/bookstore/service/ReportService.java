@@ -1,5 +1,8 @@
 package com.example.bookstore.service;
 
-public class ReportService {
+public interface ReportService {
+        void generateLowStockReport();
+
+        String buildLowStockReport(int threshold);
     
-}
+} 

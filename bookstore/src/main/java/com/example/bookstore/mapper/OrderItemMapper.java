@@ -1,6 +1,7 @@
 package com.example.bookstore.mapper;
 
-import com.example.bookstore.dto.response.OrderItemResponse;
+import com.example.bookstore.DTO.respones.OrderItemResponse;
+
 import com.example.bookstore.entity.OrderItem;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;

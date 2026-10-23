@@ -1,5 +1,6 @@
 package com.example.bookstore.service;
 
+import com.example.bookstore.entity.Cart;
 import com.example.bookstore.DTO.request.AddToCartRequest;
 import com.example.bookstore.DTO.request.UpdateCartItemRequest;
 import com.example.bookstore.DTO.respones.CartResponse;

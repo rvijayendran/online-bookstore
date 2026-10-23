@@ -1,8 +1,11 @@
 package com.example.bookstore.service;
 
-import org.springdoc.core.converters.models.Pageable;
-import org.springframework.data.domain.Page;
+import java.math.BigDecimal;
 
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
+
+import com.example.bookstore.entity.Book;
 import com.example.bookstore.DTO.request.BookRequest;
 import com.example.bookstore.DTO.respones.BookResponse;
 

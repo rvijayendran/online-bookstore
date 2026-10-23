@@ -54,7 +54,7 @@ public class Book {
     private BigDecimal price ;
 
     @Column(nullable = false)
-    private int stockQuantity ;
+    private Integer stockQuantity ;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "category_id", nullable = false)
@@ -69,7 +69,7 @@ public class Book {
     private LocalDateTime updatedAt ;
 
     @Version 
-    private  long version;
+    private  Long version;
 
     @PrePersist
     protected void onCreate(){

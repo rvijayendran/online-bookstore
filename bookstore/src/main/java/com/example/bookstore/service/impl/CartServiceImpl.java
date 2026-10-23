@@ -143,7 +143,7 @@ public class CartServiceImpl implements CartService {
         return cartRepository.findByUserId(userId).orElseGet(()-> {
             User user = userService.getEntityById(userId);
             Cart newCart = Cart.builder().user(user).build();
-            return  cartItemRepository.save(newCart);
+            return cartRepository.save(newCart);
         });
     }
 

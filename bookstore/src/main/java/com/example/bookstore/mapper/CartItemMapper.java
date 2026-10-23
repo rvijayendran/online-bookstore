@@ -1,6 +1,7 @@
 package com.example.bookstore.mapper;
 
-import com.example.bookstore.dto.response.CartItemResponse;
+
+import com.example.bookstore.DTO.respones.CartItemResponse;
 import com.example.bookstore.entity.CartItem;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
@@ -20,7 +21,11 @@ public interface CartItemMapper {
     List<CartItemResponse> toResponseList(List<CartItem> cartItems);
 
     default BigDecimal computeSubtotal(CartItem item) {
-        if (item.getBook() == null || item.getQuantity() == null) return BigDecimal.ZERO;
+        if (item.getBook() == null || item == null) return BigDecimal.ZERO;
+           Integer qty = item.getQuantity();
+    if (qty == null || qty <= 0) {
+        return BigDecimal.ZERO; // or throw
+    }
         return item.getBook().getPrice()
                 .multiply(BigDecimal.valueOf(item.getQuantity()));
     }

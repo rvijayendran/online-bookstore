@@ -3,13 +3,13 @@ package com.example.bookstore.service.impl;
 import java.util.HashSet;
 import java.util.Set;
 
-import org.springframework.boot.webmvc.autoconfigure.WebMvcProperties.Apiversion.Use;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.example.bookstore.DTO.request.UserResgistrationRequest;
-import com.example.bookstore.DTO.response.UserResponse;
+import com.example.bookstore.DTO.respones.UserResponse;
+
 import com.example.bookstore.entity.Roles;
 import com.example.bookstore.entity.User;
 import com.example.bookstore.exception.DuplicateResourceException;
@@ -70,6 +70,13 @@ public class UserServiceImpl implements  UserService{
     @Transactional(readOnly = true)
     public UserResponse findById(Long id){
         return userMapper.toResponse(getEntityById(id));
+    }
+
+    @Override
+    @Transactional(readOnly = true)
+    public User getEntityById(Long id){
+        return userRepository.findById(id)
+                .orElseThrow(() -> new ResourceNotFoundException("User", "id", id));
     }
 
     @Override 

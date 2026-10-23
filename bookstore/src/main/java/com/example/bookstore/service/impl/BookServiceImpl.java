@@ -2,10 +2,10 @@ package com.example.bookstore.service.impl;
 
 import java.math.BigDecimal;
 
-import org.springframework.boot.data.autoconfigure.web.DataWebProperties.Pageable;
 import org.springframework.cache.annotation.CacheEvict;
 import org.springframework.cache.annotation.Cacheable;
 import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.domain.Specification;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -100,7 +100,7 @@ public class BookServiceImpl implements BookService{
 
     }
 
-    @Override 
+    @Override
     @Transactional(readOnly = true)
     public Page<BookResponse> search(String title, String author , Long categoryId,
                                         BigDecimal minPrice , BigDecimal maxPrice,
@@ -109,7 +109,7 @@ public class BookServiceImpl implements BookService{
                         return bookRepository.findAll(spec, pageable).map(bookMapper::toResponse);
                                         }
     
-    @Override 
+    @Override
     @Transactional(readOnly = true)
     public Page<BookResponse> listAll(Pageable pageable){
         return bookRepository.findAll(pageable).map(bookMapper::toResponse);

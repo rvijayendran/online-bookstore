@@ -6,7 +6,7 @@ spring:
     driver-class-name: com.mysql.cj.jdbc.Driver
   jpa:
     hibernate:
-      ddl-auto: update  # Update schema as entities change
+      ddl-auto: none  # Preserve the existing development database schema
     show-sql: true
     properties:
       hibernate:
@@ -18,3 +18,7 @@ spring:
       host: localhost      # Redis server address
       port: 6379          # Default Redis port
       timeout: 2000ms
+  bookstore:
+    report:
+      low-stock-threshold: 5
+      admin-email: admin@bookstore.local

@@ -1,18 +1,19 @@
 package com.example.bookstore.mapper;
 
 import java.util.Set;
-import java.util.stream.Collector;
 import java.util.stream.Collectors;
 
 import org.mapstruct.Mapper;
+import org.mapstruct.Mapping;
 
+import com.example.bookstore.DTO.respones.UserResponse;
 import com.example.bookstore.entity.Roles;
 import com.example.bookstore.entity.User;
 
 @Mapper(componentModel =  "spring")
 public interface  UserMapper {
 
-    @Mapper(target = "roles", source = "roles")
+    @Mapping(target = "roles", source = "roles")
     UserResponse toResponse(User user);
 
     default Set<String> mapRoles(Set<Roles> roles){

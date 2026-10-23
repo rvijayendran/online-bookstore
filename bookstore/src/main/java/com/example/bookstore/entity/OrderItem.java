@@ -36,7 +36,7 @@ public class OrderItem {
     private Book book ;
 
     @Column(nullable = false)
-    private int quantity ;
+    private Integer quantity ;
 
     @Column(nullable = false, precision = 10 , scale = 2)
     private BigDecimal priceAtPurchase;

@@ -36,6 +36,21 @@ public class CategoryServiceImpl implements CategoryService {
         return categoryMapper.toRespose(saved);
     }
 
+    @Override
+    @Transactional
+    @CacheEvict(value = "books", allEntries = true)
+    public CategoryResponse update(Long id, CategoryRequest request){
+        Category category = getEntityById(id);
+
+        if (!category.getName().equals(request.name()) && categoryRepository.existsByName(request.name())) {
+            throw new DuplicateResourceException("Category", "name", request.name());
+        }
+
+        categoryMapper.updateEntityFromRequest(request, category);
+        Category updated = categoryRepository.save(category);
+        return categoryMapper.toRespose(updated);
+    }
+
     @Override 
     @Transactional 
     @CacheEvict(value = "books", allEntries = true)
@@ -55,13 +70,13 @@ public class CategoryServiceImpl implements CategoryService {
     @Override 
     @Transactional(readOnly = true)
     public Category getEntityById(Long id){
-        return categoryRepository.findAllById(id)
+        return categoryRepository.findById(id)
                 .orElseThrow(()-> new ResourceNotFoundException("Category", "id", id));
     }
 
     @Override 
     @Transactional(readOnly = true)
-    public List<CategoryResponse> listAll(){
+    public List<CategoryResponse> ListAll(){
         return categoryMapper.toResponseList(categoryRepository.findAll());
     }
 
